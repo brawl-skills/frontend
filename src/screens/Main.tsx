@@ -1,17 +1,15 @@
 import React from 'react'
-import { Flex, Text } from '@chakra-ui/react'
+import { Grid } from '@chakra-ui/react'
+
+// Components
+import Navbar from '../components/Navbar'
+import PageBody from '../components/PageBody'
 
 export default function Main() {
   return (
-    <Flex bg="gray.800" h="100%" justify="center" align="center">
-      <Text
-        bgGradient="linear(to-l, #FDA1FA, #9FF7FE, #D7FCCA)"
-        bgClip="text"
-        fontSize="6xl"
-        fontWeight="bold"
-      >
-        Brawl Stats
-      </Text>
-    </Flex>
+    <Grid h="100%" templateRows="max-content 1fr" templateColumns="1fr">
+      <Navbar />
+      <PageBody />
+    </Grid>
   )
 }
