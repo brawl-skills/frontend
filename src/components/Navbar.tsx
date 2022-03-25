@@ -20,7 +20,6 @@ import logoMini from '../assets/imgs/logo-mini.svg'
 export default function Navbar() {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
-    console.log('Поиск')
   }
 
   return (
