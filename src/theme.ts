@@ -15,6 +15,7 @@ const components: ThemeComponents = {
       gradientGhost: {
         zIndex: 0,
         _hover: {
+          textDecor: 'none',
           _before: {
             opacity: 0.6,
           },
@@ -41,6 +42,7 @@ const components: ThemeComponents = {
       gradientSolid: {
         zIndex: 0,
         _hover: {
+          textDecor: 'none',
           _before: {
             opacity: 0.6,
           },

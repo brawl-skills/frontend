@@ -121,15 +121,20 @@ function MobileNavItem({ label, href }: NavItem) {
     <Stack spacing={4}>
       <Flex
         py={2}
-        as={Link}
-        href={href ?? '#'}
         justify="space-between"
         align="center"
         _hover={{
           textDecoration: 'none',
         }}
       >
-        <Button variant="gradientGhost">{label}</Button>
+        <Button
+          as={Link}
+          href={href ?? '#'}
+          isFullWidth
+          variant="gradientGhost"
+        >
+          {label}
+        </Button>
       </Flex>
     </Stack>
   )
