@@ -7,14 +7,12 @@ import {
   GridItem,
   Flex,
   Heading,
-  Divider,
   IconButton,
   Button,
   Stack,
   Collapse,
   Icon,
   Link,
-  Image,
   Input,
   InputGroup,
   InputLeftElement,
@@ -23,10 +21,7 @@ import {
 } from '@chakra-ui/react'
 import { RiMenuLine, RiSearchLine } from 'react-icons/ri'
 
-// Imgs
-import logoMini from '../../assets/imgs/logo-mini.svg'
-
-export default function WithSubnavigation() {
+export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure()
 
   return (
@@ -34,23 +29,26 @@ export default function WithSubnavigation() {
       <Flex px={4} h="64px" bg="gray.900" align="center">
         <Flex
           flex={{ base: 1, md: 'auto' }}
-          ml={{ base: -2 }}
           display={{ base: 'flex', md: 'none' }}
         >
           <IconButton
             onClick={onToggle}
             icon={<Icon as={RiMenuLine} />}
-            variant="gradientSolid"
+            colorScheme="gray"
+            variant={isOpen ? 'gradientSolid' : 'solid'}
             aria-label="Toggle Navigation"
           />
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
-          <Image
-            boxSize="52px"
-            borderRadius="full"
-            src={logoMini}
-            alt="Brawl Skills"
-          />
+          <Heading
+            size="lg"
+            as="h2"
+            bgGradient="linear(to-l, #FDA1FA, #9FF7FE, #D7FCCA)"
+            bgClip="text"
+            inlineSize="max-content"
+          >
+            Brawl Skills
+          </Heading>
 
           <Flex display={{ base: 'none', md: 'flex' }} ml={4}>
             <DesktopNav />
@@ -82,16 +80,6 @@ export default function WithSubnavigation() {
 function DesktopNav() {
   return (
     <Stack direction="row" spacing={4} align="center">
-      <Heading inlineSize="max-content" size="md">
-        Brawl-Skills
-      </Heading>
-      <Divider
-        borderColor="#4F5159"
-        borderRadius="full"
-        orientation="vertical"
-        h={8}
-        size="md"
-      />
       {NAV_ITEMS.map(({ label }) => (
         <Button key={label} variant="gradientGhost">
           {label}
