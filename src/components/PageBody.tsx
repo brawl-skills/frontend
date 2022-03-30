@@ -1,18 +1,16 @@
-import { Flex, GridItem, Heading } from '@chakra-ui/react'
+import { Flex, GridItem } from '@chakra-ui/react'
+import { ReactNode } from 'react'
 
-export default function PageBody() {
+export default function PageBody({ children }: PageBodyProps) {
   return (
     <GridItem>
       <Flex bg="gray.800" h="100%" justify="center" align="center">
-        <Heading
-          size="2xl"
-          as="h2"
-          bgGradient="linear(to-l, #FDA1FA, #9FF7FE, #D7FCCA)"
-          bgClip="text"
-        >
-          Brawl Skills
-        </Heading>
+        {children}
       </Flex>
     </GridItem>
   )
+}
+
+interface PageBodyProps {
+  children: ReactNode
 }

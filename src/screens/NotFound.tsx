@@ -5,11 +5,11 @@ import PageBody from '../components/PageBody'
 import { useMyDispatch } from '../components/storeHooks'
 import { setPage } from '../components/slices/pages'
 
-export default function Main() {
+export default function NotFound() {
   const dispatch = useMyDispatch()
 
   useEffect(() => {
-    dispatch(setPage('main'))
+    dispatch(setPage('404'))
   }, [dispatch])
-  return <PageBody>123</PageBody>
+  return <PageBody>404 Error Message</PageBody>
 }

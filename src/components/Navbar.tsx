@@ -3,6 +3,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 
+import { Link } from 'react-router-dom'
 import {
   GridItem,
   Flex,
@@ -12,7 +13,6 @@ import {
   Stack,
   Collapse,
   Icon,
-  Link,
   Input,
   InputGroup,
   InputLeftElement,
@@ -20,6 +20,9 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { RiMenuLine, RiSearchLine } from 'react-icons/ri'
+
+// Redux Store
+import { useMySelector } from './storeHooks'
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure()
@@ -78,10 +81,17 @@ export default function Navbar() {
 }
 
 function DesktopNav() {
+  const currentPage = useMySelector((state) => state.pages.page)
+
   return (
     <Stack direction="row" spacing={4} align="center">
-      {NAV_ITEMS.map(({ label }) => (
-        <Button key={label} variant="gradientGhost">
+      {NAV_ITEMS.map(({ label, pageType, href }) => (
+        <Button
+          key={label}
+          variant={pageType === currentPage ? 'gradientSolid' : 'gradientGhost'}
+          as={Link}
+          to={href ?? '#'}
+        >
           {label}
         </Button>
       ))}
@@ -104,7 +114,9 @@ function MobileNav() {
   )
 }
 
-function MobileNavItem({ label, href }: NavItem) {
+function MobileNavItem({ label, href, pageType }: NavItem) {
+  const currentPage = useMySelector((state) => state.pages.page)
+
   return (
     <Stack spacing={4}>
       <Flex
@@ -117,9 +129,9 @@ function MobileNavItem({ label, href }: NavItem) {
       >
         <Button
           as={Link}
-          href={href ?? '#'}
+          to={href ?? '#'}
           isFullWidth
-          variant="gradientGhost"
+          variant={pageType === currentPage ? 'gradientSolid' : 'gradientGhost'}
         >
           {label}
         </Button>
@@ -150,22 +162,28 @@ function SearchDB() {
   )
 }
 
+type PageTypes = 'main' | 'about' | 'lvl' | '404'
+
 interface NavItem {
   label: string
+  pageType: PageTypes
   href: string
 }
 
 const NAV_ITEMS: Array<NavItem> = [
   {
     label: 'Главная страница',
-    href: '#',
+    pageType: 'main',
+    href: '/',
   },
   {
     label: 'Уровни',
-    href: '#',
+    pageType: 'lvl',
+    href: '/lvl',
   },
   {
     label: 'О Проекте',
-    href: '#',
+    pageType: 'about',
+    href: '/about',
   },
 ]
