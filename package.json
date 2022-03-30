@@ -38,6 +38,7 @@
       "airbnb-typescript",
       "airbnb/hooks",
       "plugin:jsx-a11y/recommended",
+      "plugin:react/jsx-runtime",
       "prettier"
     ],
     "plugins": [

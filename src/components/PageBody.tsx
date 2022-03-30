@@ -1,4 +1,3 @@
-import React from 'react'
 import { Flex, GridItem, Heading } from '@chakra-ui/react'
 
 export default function PageBody() {
