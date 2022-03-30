@@ -7,6 +7,7 @@ import Navbar from '../components/Navbar'
 // Screens
 import Main from './Main'
 import NotFound from './NotFound'
+import About from './About'
 
 export default function Root() {
   return (
@@ -14,6 +15,7 @@ export default function Root() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Main />} />
+        <Route path="/about" element={<About />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Grid>

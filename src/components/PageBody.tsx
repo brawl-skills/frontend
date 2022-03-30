@@ -1,10 +1,24 @@
-import { Flex, GridItem } from '@chakra-ui/react'
+/* eslint-disable react/require-default-props */
+import { Flex, FlexOptions, GridItem, SpaceProps } from '@chakra-ui/react'
 import { ReactNode } from 'react'
 
-export default function PageBody({ children }: PageBodyProps) {
+export default function PageBody({
+  children,
+  justify = 'center',
+  align = 'center',
+  dir = 'row',
+  px = 0,
+}: PageBodyProps) {
   return (
     <GridItem>
-      <Flex bg="gray.800" h="100%" justify="center" align="center">
+      <Flex
+        bg="gray.800"
+        h="100%"
+        direction={dir}
+        justify={justify}
+        align={align}
+        px={px}
+      >
         {children}
       </Flex>
     </GridItem>
@@ -13,4 +27,8 @@ export default function PageBody({ children }: PageBodyProps) {
 
 interface PageBodyProps {
   children: ReactNode
+  justify?: FlexOptions['justify']
+  align?: FlexOptions['align']
+  dir?: FlexOptions['direction']
+  px?: SpaceProps['px']
 }
