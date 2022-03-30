@@ -17,12 +17,12 @@ const components: ThemeComponents = {
         _hover: {
           textDecor: 'none',
           _before: {
-            opacity: 0.6,
+            opacity: 0.8,
           },
         },
         _active: {
           _before: {
-            opacity: 1,
+            opacity: 0.6,
           },
         },
         _before: {
@@ -44,12 +44,12 @@ const components: ThemeComponents = {
         _hover: {
           textDecor: 'none',
           _before: {
-            opacity: 0.6,
+            opacity: 0.8,
           },
         },
         _active: {
           _before: {
-            opacity: 1,
+            opacity: 0.6,
           },
         },
         _before: {
