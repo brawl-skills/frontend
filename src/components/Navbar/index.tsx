@@ -6,7 +6,8 @@
 import {
   GridItem,
   Flex,
-  Text,
+  Heading,
+  Divider,
   IconButton,
   Button,
   Stack,
@@ -51,7 +52,7 @@ export default function WithSubnavigation() {
             alt="Brawl Skills"
           />
 
-          <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
+          <Flex display={{ base: 'none', md: 'flex' }} ml={4}>
             <DesktopNav />
           </Flex>
         </Flex>
@@ -60,9 +61,7 @@ export default function WithSubnavigation() {
           display={{ base: 'flex', md: 'none' }}
           justify="flex-end"
         >
-          <Button type="submit" variant="gradientSolid" onClick={onToggle}>
-            Поиск
-          </Button>
+          {' '}
         </Flex>
         <Flex
           flex={{ base: 0, md: 1 }}
@@ -83,6 +82,16 @@ export default function WithSubnavigation() {
 function DesktopNav() {
   return (
     <Stack direction="row" spacing={4} align="center">
+      <Heading inlineSize="max-content" size="md">
+        Brawl-Skills
+      </Heading>
+      <Divider
+        borderColor="#4F5159"
+        borderRadius="full"
+        orientation="vertical"
+        h={8}
+        size="md"
+      />
       {NAV_ITEMS.map(({ label }) => (
         <Button key={label} variant="gradientGhost">
           {label}
@@ -120,12 +129,7 @@ function MobileNavItem({ label, href }: NavItem) {
           textDecoration: 'none',
         }}
       >
-        <Text
-          fontWeight={600}
-          color={useColorModeValue('gray.600', 'gray.200')}
-        >
-          {label}
-        </Text>
+        <Button variant="gradientGhost">{label}</Button>
       </Flex>
     </Stack>
   )
