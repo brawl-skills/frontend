@@ -65,8 +65,16 @@ export default function Footer() {
 function ButtonsGroup(props: StackProps) {
   return (
     <Stack {...props}>
-      {actions.map(({ name, icon }) => (
-        <IconButton key={name} icon={icon} aria-label={name} pos="static" />
+      {actions.map(({ name, icon, href }) => (
+        <IconButton
+          as={Link}
+          isExternal
+          href={href}
+          key={name}
+          icon={icon}
+          aria-label={name}
+          pos="static"
+        />
       ))}
     </Stack>
   )
@@ -82,5 +90,9 @@ interface SpecialAction {
 const actions: Array<SpecialAction> = [
   { name: 'translate', icon: <RiTranslate2 /> },
   { name: 'switch appereance', icon: <RiMoonLine /> },
-  { name: 'github', icon: <RiGithubLine /> },
+  {
+    name: 'github',
+    icon: <RiGithubLine />,
+    href: 'https://github.com/brawl-skills/frontend',
+  },
 ]
