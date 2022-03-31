@@ -94,7 +94,7 @@ function GradientLine() {
         bgGradient="linear(to-r, #FC8181, #F6AD55, #F6E05E, #68D391, #B794F4)"
       />
       <Flex pt={2}>
-        <Flex flex={1} justify="flex-start" pl={8}>
+        <Flex flex={1} justify="flex-start" pl={{ base: 2, md: 8 }}>
           <Text as="b" color="red.300">
             40%
           </Text>
@@ -104,7 +104,7 @@ function GradientLine() {
             50%
           </Text>
         </Flex>
-        <Flex flex={1} justify="flex-end" pr={8}>
+        <Flex flex={1} justify="flex-end" pr={{ base: 2, md: 8 }}>
           <Text as="b" color="purple.300">
             60%
           </Text>
