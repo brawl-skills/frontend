@@ -10,7 +10,7 @@ export default function PageBody({
   px = 0,
 }: PageBodyProps) {
   return (
-    <GridItem>
+    <GridItem mt="64px">
       <Flex
         bg="gray.800"
         h="100%"

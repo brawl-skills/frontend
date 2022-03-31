@@ -28,7 +28,7 @@ export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure()
 
   return (
-    <GridItem>
+    <GridItem position="fixed" w="100%">
       <Flex px={4} h="64px" bg="gray.900" align="center">
         <Flex
           flex={{ base: 1, md: 'auto' }}
