@@ -7,18 +7,11 @@ export default function PageBody({
   justify = 'center',
   align = 'center',
   dir = 'row',
-  px = 0,
+  px = { base: 8, md: 32 },
 }: PageBodyProps) {
   return (
     <GridItem mt="64px">
-      <Flex
-        bg="gray.800"
-        h="100%"
-        direction={dir}
-        justify={justify}
-        align={align}
-        px={px}
-      >
+      <Flex h="100%" direction={dir} justify={justify} align={align} px={px}>
         {children}
       </Flex>
     </GridItem>

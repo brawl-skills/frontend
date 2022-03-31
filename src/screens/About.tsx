@@ -25,7 +25,7 @@ export default function About() {
     dispatch(setPage('about'))
   }, [dispatch])
   return (
-    <PageBody justify="flex-start" dir="column" px={{ base: 8, md: 32 }}>
+    <PageBody justify="flex-start" dir="column">
       <Heading as="h1" size="2xl" my={9}>
         Рейтинг
       </Heading>
