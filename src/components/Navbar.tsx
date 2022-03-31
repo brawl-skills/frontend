@@ -3,6 +3,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 
+import { MouseEventHandler } from 'react'
 import { Link } from 'react-router-dom'
 import {
   GridItem,
@@ -16,7 +17,6 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  useColorModeValue,
   useDisclosure,
 } from '@chakra-ui/react'
 import { RiMenuLine, RiSearchLine } from 'react-icons/ri'
@@ -77,7 +77,7 @@ export default function Navbar() {
       </Flex>
 
       <Collapse in={isOpen} animateOpacity>
-        <MobileNav />
+        <MobileNav onToggle={onToggle} />
       </Collapse>
     </GridItem>
   )
@@ -102,22 +102,18 @@ function DesktopNav() {
   )
 }
 
-function MobileNav() {
+function MobileNav({ onToggle }: MobileNavProps) {
   return (
-    <Stack
-      bg={useColorModeValue('white', 'gray.800')}
-      p={4}
-      display={{ md: 'none' }}
-    >
+    <Stack bg="gray.800" p={4} display={{ md: 'none' }} zIndex="dropdown">
       {NAV_ITEMS.map((navItem) => (
-        <MobileNavItem key={navItem.label} {...navItem} />
+        <MobileNavItem key={navItem.label} action={onToggle} {...navItem} />
       ))}
       <SearchDB />
     </Stack>
   )
 }
 
-function MobileNavItem({ label, href, pageType }: NavItem) {
+function MobileNavItem({ label, href, pageType, action }: NavItem) {
   const currentPage = useMySelector((state) => state.pages.page)
 
   return (
@@ -133,6 +129,7 @@ function MobileNavItem({ label, href, pageType }: NavItem) {
         <Button
           as={Link}
           to={href ?? '#'}
+          onClick={action}
           isFullWidth
           variant={pageType === currentPage ? 'gradientSolid' : 'gradientGhost'}
         >
@@ -171,6 +168,11 @@ interface NavItem {
   label: string
   pageType: PageTypes
   href: string
+  action?: MouseEventHandler
+}
+
+interface MobileNavProps {
+  onToggle: MouseEventHandler
 }
 
 const NAV_ITEMS: Array<NavItem> = [
