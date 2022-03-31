@@ -9,14 +9,10 @@ import Main from './Main'
 import NotFound from './NotFound'
 import About from './About'
 
-export default function Root() {
-  const paths = (path: string): string => {
-    if (process.env.NODE_ENV === 'production') {
-      return `/frontend${path}`
-    }
-    return path
-  }
+// Help functions
+import paths from '../helper/paths'
 
+export default function Root() {
   return (
     <Grid h="100%" templateRows="max-content 1fr" templateColumns="1fr">
       <Navbar />

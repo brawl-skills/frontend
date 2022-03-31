@@ -24,6 +24,9 @@ import { RiMenuLine, RiSearchLine } from 'react-icons/ri'
 // Redux Store
 import { useMySelector } from './storeHooks'
 
+// Helper functions
+import paths from '../helper/paths'
+
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure()
 
@@ -174,16 +177,16 @@ const NAV_ITEMS: Array<NavItem> = [
   {
     label: 'Главная страница',
     pageType: 'main',
-    href: '/',
+    href: paths('/'),
   },
   {
     label: 'Уровни',
     pageType: 'lvl',
-    href: '/lvl',
+    href: paths('/lvl'),
   },
   {
     label: 'О Проекте',
     pageType: 'about',
-    href: '/about',
+    href: paths('/about'),
   },
 ]
