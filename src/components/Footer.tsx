@@ -39,7 +39,7 @@ export default function Footer() {
             <Text fontSize="sm">
               Этот материал является неофициальным и не одобрен Supercell.
             </Text>
-            <Text as="p">
+            <Text fontSize="sm">
               {' '}
               Для получения дополнительной информации см. политику в отношении
               фан-контента Supercell:{' '}
