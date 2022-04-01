@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom'
 // Routing by React-Router
 import { BrowserRouter } from 'react-router-dom'
 // Chakra UI
-import { ChakraProvider } from '@chakra-ui/react'
+import { Center, ChakraProvider } from '@chakra-ui/react'
 // Redux
 import { Provider } from 'react-redux'
 
@@ -17,14 +17,16 @@ import './index.css'
 import theme from './theme'
 
 // Path to screens
-import Root from './screens/Root'
+const Root = React.lazy(() => import('./screens/Root'))
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <ChakraProvider theme={theme}>
         <Provider store={store}>
-          <Root />
+          <Suspense fallback={<Center h="100%">Загрузка...</Center>}>
+            <Root />
+          </Suspense>
         </Provider>
       </ChakraProvider>
     </BrowserRouter>
