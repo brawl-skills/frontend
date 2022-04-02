@@ -6,12 +6,18 @@ import { Stack, Box, Flex, Heading } from '@chakra-ui/react'
 import PageBody from '../components/PageBody'
 import ChartBox from '../components/ChartBox'
 
+// Graphs
+import LineChart, { LineDataType } from '../components/charts/LineChart'
+import PieChart, { PieDataType } from '../components/charts/PieChart'
+
 // Redux Store
 import { useMyDispatch } from '../components/storeHooks'
 import { setPage } from '../components/slices/pages'
 
-// Graphs
-import LineChart from '../components/charts/LineChart'
+// Helper functions
+import random from '../helper/random'
+import randBrawlerName from '../helper/randBrawlerName'
+import randPieColor from '../helper/randomColor'
 
 export default function Main() {
   const dispatch = useMyDispatch()
@@ -40,19 +46,71 @@ function Graphs() {
       <ChartBox
         title="Количество игроков за последние сутки"
         desc="График с колличеством игроков в разные часы за последние сутки."
-        graph={<PlayerByLvl />}
+        graph={<PlayerByHours />}
       />
       <ChartBox
         title="Самый популярный боец за сутки"
         desc="Радиальная диаграмма показывает количество игр на разных персонажах за сутки."
-        graph={<PlayerByLvl />}
+        graph={<BestBrawlerBy24H />}
       />
     </Stack>
   )
 }
 
 function PlayerByLvl() {
-  return <LineChart xLableText="Игровой уровень" yLabelText="Кол-во игроков" />
+  // @ts-ignore
+  const dataset: Array<LineDataType> = [...Array(10).keys()]
+
+  dataset.forEach((e, i) => {
+    dataset[i] = {
+      x: (i + 1) * 10,
+      y: random(1000, 5000),
+    }
+  })
+  return (
+    <LineChart
+      xTitle="Игровой уровень"
+      yTitle="Кол-во игроков"
+      dataset={dataset}
+      textColor="#FBB6CE"
+    />
+  )
+}
+
+function PlayerByHours() {
+  // @ts-ignore
+  const dataset: Array<LineDataType> = [...Array(12).keys()]
+
+  dataset.forEach((e, i) => {
+    dataset[i] = {
+      x: new Date(i * 7200 * 1000)
+        .toLocaleTimeString('ru', { timeZone: 'UTC' })
+        .slice(0, 5),
+      y: random(1000, 5000),
+    }
+  })
+  return (
+    <LineChart
+      xTitle="Время"
+      yTitle="Кол-во игроков"
+      dataset={dataset}
+      textColor="#9DECF9"
+    />
+  )
+}
+
+function BestBrawlerBy24H() {
+  // @ts-ignore
+  const dataset: Array<PieDataType> = [...Array(5).keys()]
+
+  dataset.forEach((e, i) => {
+    dataset[i] = {
+      title: randBrawlerName(),
+      count: random(0, 100),
+      color: randPieColor(),
+    }
+  })
+  return <PieChart dataset={dataset} />
 }
 
 function OnlinePlayers() {

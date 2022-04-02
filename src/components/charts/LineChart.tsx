@@ -13,33 +13,29 @@ import { Line } from 'react-chartjs-2'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip)
 
-const dataset: Array<DataType> = [
-  { lvl: 10, players: 1000 },
-  { lvl: 20, players: 1100 },
-  { lvl: 30, players: 1500 },
-  { lvl: 40, players: 1600 },
-  { lvl: 50, players: 1550 },
-]
-
-const data: ChartData<'line'> = {
-  labels: dataset.map((e) => `${e.lvl} lvl`),
-  datasets: [
-    {
-      label: 'Кол-во игроков',
-      // @ts-ignore
-      data: dataset,
-      borderColor: 'rgb(255, 99, 132)',
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
-      tension: 0.3,
-    },
-  ],
-}
-
 export default function LineChart({
-  textColor = 'pink',
-  yLabelText,
-  xLableText,
+  textColor,
+  yTitle: yLabelText,
+  xTitle: xLableText,
+  dataset,
+  labels = dataset.map((e) => e.x),
 }: LineChartProps) {
+  const data: ChartData<'line'> = {
+    labels,
+    datasets: [
+      {
+        label: 'Data',
+        // @ts-ignore
+        data: dataset,
+        borderColor: textColor,
+        backgroundColor: `${textColor}80`,
+        tension: 0.3,
+        pointHitRadius: 12,
+        pointRadius: 4,
+      },
+    ],
+  }
+
   const defaultOptions = {
     title: {
       display: true,
@@ -62,8 +58,8 @@ export default function LineChart({
   const options: ChartOptions<'line'> = {
     aspectRatio: 1,
     parsing: {
-      xAxisKey: 'lvl',
-      yAxisKey: 'players',
+      xAxisKey: 'x',
+      yAxisKey: 'y',
     },
     scales: {
       x: {
@@ -89,18 +85,24 @@ export default function LineChart({
         },
       },
     },
-    plugins: {},
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
   }
   return <Line options={options} data={data} />
 }
 
-interface DataType {
-  lvl: number
-  players: number
+export interface LineDataType {
+  x: number | string
+  y: number | string
 }
 
 interface LineChartProps {
-  textColor?: string
-  yLabelText: string
-  xLableText: string
+  yTitle: string
+  xTitle: string
+  dataset: Array<LineDataType>
+  labels?: Array<unknown>
+  textColor: string
 }
