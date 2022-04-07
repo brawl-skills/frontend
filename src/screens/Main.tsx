@@ -71,6 +71,7 @@ function PlayerByLvl() {
     <LineChart
       xTitle="Игровой уровень"
       yTitle="Кол-во игроков"
+      yShortTitle="Игроков"
       dataset={dataset}
       textColor="#FBB6CE"
     />
@@ -93,6 +94,7 @@ function PlayerByHours() {
     <LineChart
       xTitle="Время"
       yTitle="Кол-во игроков"
+      yShortTitle="Игроков"
       dataset={dataset}
       textColor="#9DECF9"
     />
@@ -106,11 +108,11 @@ function BestBrawlerBy24H() {
   dataset.forEach((e, i) => {
     dataset[i] = {
       title: randBrawlerName(),
-      count: random(0, 100),
+      count: random(1000, 6000),
       color: randPieColor(),
     }
   })
-  return <PieChart dataset={dataset} />
+  return <PieChart dataset={dataset} tooltipAfter=" игр" />
 }
 
 function OnlinePlayers() {

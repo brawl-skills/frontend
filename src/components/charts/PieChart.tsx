@@ -1,15 +1,20 @@
+/* eslint-disable react/require-default-props */
 import {
   Chart as ChartJS,
   ArcElement,
   Tooltip,
   Legend,
   ChartData,
+  ChartOptions,
 } from 'chart.js'
 import { Pie } from 'react-chartjs-2'
 
 ChartJS.register(ArcElement, Tooltip, Legend)
 
-export default function PieChart({ dataset }: PieChartProps) {
+export default function PieChart({
+  dataset,
+  tooltipAfter = '',
+}: PieChartProps) {
   const bgColors = dataset.map((e) => {
     switch (e.color) {
       case 'blue':
@@ -41,11 +46,16 @@ export default function PieChart({ dataset }: PieChartProps) {
     ],
   }
 
-  const options = {
+  const options: ChartOptions<'pie'> = {
     plugins: {
       legend: {
         labels: {
           color: '#fff',
+        },
+      },
+      tooltip: {
+        callbacks: {
+          label: ({ label, parsed }) => `${label}: ${parsed}${tooltipAfter}`,
         },
       },
     },
@@ -62,4 +72,5 @@ export interface PieDataType {
 
 interface PieChartProps {
   dataset: Array<PieDataType>
+  tooltipAfter?: string
 }

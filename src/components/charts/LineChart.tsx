@@ -17,6 +17,7 @@ export default function LineChart({
   textColor,
   yTitle: yLabelText,
   xTitle: xLableText,
+  yShortTitle,
   dataset,
   labels = dataset.map((e) => e.x),
 }: LineChartProps) {
@@ -24,7 +25,7 @@ export default function LineChart({
     labels,
     datasets: [
       {
-        label: 'Data',
+        label: yShortTitle,
         // @ts-ignore
         data: dataset,
         borderColor: textColor,
@@ -102,6 +103,7 @@ export interface LineDataType {
 interface LineChartProps {
   yTitle: string
   xTitle: string
+  yShortTitle: string
   dataset: Array<LineDataType>
   labels?: Array<unknown>
   textColor: string
