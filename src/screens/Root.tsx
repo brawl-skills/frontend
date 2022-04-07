@@ -9,6 +9,7 @@ import Footer from '../components/Footer'
 import Main from './Main'
 import NotFound from './NotFound'
 import About from './About'
+import Levels from './Levels'
 
 // Help functions
 import paths from '../helper/paths'
@@ -19,6 +20,7 @@ export default function Root() {
       <Navbar />
       <Routes>
         <Route path={paths('/')} element={<Main />} />
+        <Route path={paths('/lvl')} element={<Levels />} />
         <Route path={paths('/about')} element={<About />} />
         <Route path={paths('*')} element={<NotFound />} />
       </Routes>
