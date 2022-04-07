@@ -43,7 +43,11 @@ export default function Footer() {
               {' '}
               Для получения дополнительной информации см. политику в отношении
               фан-контента Supercell:{' '}
-              <Link isExternal href="https://modxvm.com/" color="purple.500">
+              <Link
+                isExternal
+                href="https://supercell.com/fan-content-policy"
+                color="purple.500"
+              >
                 {' '}
                 www.supercell.com/fan-content-policy
               </Link>
