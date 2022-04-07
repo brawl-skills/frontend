@@ -31,7 +31,7 @@ export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure()
 
   return (
-    <GridItem position="fixed" w="100%">
+    <GridItem position="fixed" w="100%" zIndex="dropdown">
       <Flex px={4} h="64px" bg="gray.900" align="center">
         <Flex
           flex={{ base: 1, md: 'auto' }}
@@ -104,7 +104,7 @@ function DesktopNav() {
 
 function MobileNav({ onToggle }: MobileNavProps) {
   return (
-    <Stack bg="gray.800" p={4} display={{ md: 'none' }} zIndex="dropdown">
+    <Stack bg="gray.800" p={4} display={{ md: 'none' }}>
       {NAV_ITEMS.map((navItem) => (
         <MobileNavItem key={navItem.label} action={onToggle} {...navItem} />
       ))}
