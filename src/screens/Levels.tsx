@@ -14,6 +14,7 @@ import {
   StatArrow,
   StatNumber,
   StatHelpText,
+  Skeleton,
 } from '@chakra-ui/react'
 
 // Components
@@ -36,20 +37,21 @@ import randPieColor from '../helper/randomColor'
 export default function Levels() {
   const dispatch = useMyDispatch()
   const [level, setLevel] = useState(30)
+  const [isLoading, setLoading] = useState(false)
 
   useEffect(() => {
     dispatch(setPage('lvl'))
   }, [dispatch])
   return (
     <PageBody dir="column">
-      <LevelSelect level={level} setLevel={setLevel} />
-      <Stats />
-      <Graphs />
+      <LevelSelect level={level} setLevel={setLevel} setLoading={setLoading} />
+      <Stats isLoading={isLoading} />
+      <Graphs isLoading={isLoading} />
     </PageBody>
   )
 }
 
-function LevelSelect({ level, setLevel }: LevelSelectProps) {
+function LevelSelect({ level, setLevel, setLoading }: LevelSelectProps) {
   return (
     <Stack
       direction="column"
@@ -88,7 +90,11 @@ function LevelSelect({ level, setLevel }: LevelSelectProps) {
         <Slider
           aria-label="slider-ex-1"
           defaultValue={level}
-          onChange={(v) => setLevel(v ?? null)}
+          onChange={(v) => {
+            setLoading(true)
+            setLevel(v ?? null)
+          }}
+          onChangeEnd={() => setLoading(false)}
         >
           <SliderTrack bg="gray.300">
             <SliderFilledTrack bgGradient="linear(to-r, #9F7AEA, #F687B3)" />
@@ -100,16 +106,45 @@ function LevelSelect({ level, setLevel }: LevelSelectProps) {
   )
 }
 
-function Stats() {
+function Stats({ isLoading }: StatsProps) {
+  const levelStats: Array<StatType> = [
+    { title: 'Кубки', number: random(1000, 20000), arrow: 'up', percent: 30.1 },
+    {
+      title: 'Игроки',
+      number: random(500, 30000),
+      arrow: 'down',
+      percent: 12.2,
+    },
+    { title: 'Гаджеты', number: random(0, 100), arrow: 'up', percent: 3.2 },
+    {
+      title: 'Кубки/Перс.',
+      number: random(10, 600),
+      arrow: 'up',
+      percent: 18.8,
+    },
+    { title: 'Персонажи', number: random(1, 60), arrow: 'down', percent: 1.2 },
+    {
+      title: 'Звездная сила',
+      number: random(1, 100),
+      arrow: 'up',
+      percent: 0.2,
+    },
+  ]
+
+  levelStats.forEach((e, i) => {
+    levelStats[i].arrow = random(0, 1) === 1 ? 'up' : 'down'
+    levelStats[i].percent = Number((random(1, 200) / 100).toFixed(1))
+  })
+
   return (
     <Stack w="100%">
       <Stack direction="row" display={{ base: 'none', md: 'flex' }}>
         {levelStats.map((e, i) => {
-          if (i === 2) return <StatBlock {...e} />
+          if (i === 2) return <StatBlock isLoading={isLoading} {...e} />
           if (i < 3)
             return (
               <>
-                <StatBlock {...e} />
+                <StatBlock isLoading={isLoading} {...e} />
                 <Flex flex="1" />
               </>
             )
@@ -118,11 +153,11 @@ function Stats() {
       </Stack>
       <Stack direction="row" display={{ base: 'none', md: 'flex' }}>
         {levelStats.map((e, i) => {
-          if (i === 5) return <StatBlock {...e} />
+          if (i === 5) return <StatBlock isLoading={isLoading} {...e} />
           if (i > 2)
             return (
               <>
-                <StatBlock {...e} />
+                <StatBlock isLoading={isLoading} {...e} />
                 <Flex flex="1" />
               </>
             )
@@ -132,7 +167,13 @@ function Stats() {
       <Stack display={{ base: 'flex', md: 'none' }}>
         {levelStats.map((e, i) => {
           if (i % 2 === 0)
-            return <MobileStats left={e} right={levelStats[i + 1]} />
+            return (
+              <MobileStats
+                isLoading={isLoading}
+                left={e}
+                right={levelStats[i + 1]}
+              />
+            )
           return null
         })}
       </Stack>
@@ -140,7 +181,7 @@ function Stats() {
   )
 }
 
-function Graphs() {
+function Graphs({ isLoading }: GraphsProps) {
   return (
     <Stack
       w="100%"
@@ -154,11 +195,13 @@ function Graphs() {
         title="Процент наличия определенных персонажей"
         desc="Круговая диаграмма, где каждый сектор отвечает за определенного персонажа."
         graph={<HavingBrawler />}
+        isLoading={isLoading}
       />
       <ChartBox
         title="Процент наличия определенных персонажей"
         desc="Круговая диаграмма, где каждый сектор отвечает за определенного персонажа."
         graph={<TrophiesByBrawler />}
+        isLoading={isLoading}
       />
     </Stack>
   )
@@ -186,7 +229,7 @@ function HavingBrawler() {
       }
   })
 
-  return <PieChart dataset={dataset} />
+  return <PieChart dataset={dataset} tooltipAfter="%" />
 }
 
 function TrophiesByBrawler() {
@@ -203,46 +246,47 @@ function TrophiesByBrawler() {
   return <BarChart data1Name="Кубки" data2Name="Сила" dataset={dataset} />
 }
 
-function MobileStats({ left, right }: MobileStatsProps) {
+function MobileStats({ left, right, isLoading }: MobileStatsProps) {
   return (
     <Flex>
-      <StatBlock {...left} />
+      <StatBlock isLoading={isLoading} {...left} />
       <Flex flex={1} />
-      {right ? <StatBlock {...right} /> : <Flex flex={1} />}
+      {right ? (
+        <StatBlock isLoading={isLoading} {...right} />
+      ) : (
+        <Flex flex={1} />
+      )}
     </Flex>
   )
 }
 
-function StatBlock({ title, number, arrow, percent }: StatType) {
+function StatBlock({
+  title,
+  number,
+  arrow,
+  percent,
+  isLoading,
+}: StatBlockProps) {
   return (
     <Stat flex="1">
       <StatLabel fontSize={{ base: 'lg', md: 'xl' }}>{title}</StatLabel>
-      <StatNumber>
-        {
-          // @ts-ignore
+      <Skeleton isLoaded={!isLoading}>
+        <StatNumber>
           <Heading fontSize={{ base: '4xl', md: '5xl' }}>{number}</Heading>
-        }
-      </StatNumber>
-      <StatHelpText fontSize={{ base: 'sm', md: 'md' }}>
-        <StatArrow type={arrow === 'up' ? 'increase' : 'decrease'} />
-        {percent}%
-      </StatHelpText>
+        </StatNumber>
+        <StatHelpText fontSize={{ base: 'sm', md: 'md' }}>
+          <StatArrow type={arrow === 'up' ? 'increase' : 'decrease'} />
+          {percent}%
+        </StatHelpText>
+      </Skeleton>
     </Stat>
   )
 }
 
-const levelStats: Array<StatType> = [
-  { title: 'Кубки', number: 14521, arrow: 'up', percent: 30.1 },
-  { title: 'Игроки', number: 11122, arrow: 'down', percent: 12.2 },
-  { title: 'Гаджеты', number: 30, arrow: 'up', percent: 3.2 },
-  { title: 'Кубки/Перс.', number: 462, arrow: 'up', percent: 18.8 },
-  { title: 'Персонажи', number: 32, arrow: 'down', percent: 1.2 },
-  { title: 'Звездная сила', number: 6, arrow: 'up', percent: 0.2 },
-]
-
 interface MobileStatsProps {
   left: StatType
   right: StatType | null
+  isLoading: boolean
 }
 
 interface StatType {
@@ -255,4 +299,17 @@ interface StatType {
 interface LevelSelectProps {
   level: number
   setLevel: React.Dispatch<React.SetStateAction<number>>
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+interface GraphsProps {
+  isLoading: boolean
+}
+
+interface StatsProps {
+  isLoading: boolean
+}
+
+interface StatBlockProps extends StatType {
+  isLoading: boolean
 }
