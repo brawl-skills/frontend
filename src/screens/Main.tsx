@@ -37,7 +37,7 @@ function Graphs() {
   return (
     <Stack direction={{ base: 'column', lg: 'row' }} spacing={16}>
       <ChartBox
-        title="Распеределение игроков по уровням"
+        title="Распределение игроков по уровням"
         desc="График показывает 
         распределение игроков 
         на разных игровых уровнях."

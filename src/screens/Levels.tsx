@@ -68,7 +68,7 @@ function LevelSelect({ level, setLevel, setLoading }: LevelSelectProps) {
         pr={{ base: 0, md: 8 }}
       >
         <Heading textAlign="center" size="2xl">
-          Выбраный уровень
+          Выбранный уровень
         </Heading>
         <Flex
           minW="6em"
