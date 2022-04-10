@@ -3,8 +3,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 
-import { MouseEventHandler } from 'react'
 import { Link } from 'react-router-dom'
+import { MouseEventHandler, useState } from 'react'
 import {
   GridItem,
   Flex,
@@ -72,12 +72,12 @@ export default function Navbar() {
           display={{ base: 'none', md: 'flex' }}
           justify="flex-end"
         >
-          <SearchDB />
+          <SearchDB onToggleMobileNav={onToggle} />
         </Flex>
       </Flex>
 
       <Collapse in={isOpen} animateOpacity>
-        <MobileNav onToggle={onToggle} />
+        <MobileNav onToggleMobileNav={onToggle} />
       </Collapse>
     </GridItem>
   )
@@ -102,13 +102,17 @@ function DesktopNav() {
   )
 }
 
-function MobileNav({ onToggle }: MobileNavProps) {
+function MobileNav({ onToggleMobileNav }: MobileNavProps) {
   return (
     <Stack bg="gray.800" p={4} display={{ md: 'none' }}>
       {NAV_ITEMS.map((navItem) => (
-        <MobileNavItem key={navItem.label} action={onToggle} {...navItem} />
+        <MobileNavItem
+          key={navItem.label}
+          action={onToggleMobileNav}
+          {...navItem}
+        />
       ))}
-      <SearchDB />
+      <SearchDB onToggleMobileNav={onToggleMobileNav} />
     </Stack>
   )
 }
@@ -140,9 +144,21 @@ function MobileNavItem({ label, href, pageType, action }: NavItem) {
   )
 }
 
-function SearchDB() {
+function SearchDB({ onToggleMobileNav }: SearchDBProps) {
+  const [input, setInput] = useState('')
+  const [isDisabled, setIsDisabled] = useState(true)
+
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
+    // @ts-ignore
+    onToggleMobileNav(e)
+  }
+
+  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target
+    if (value) setIsDisabled(false)
+    else setIsDisabled(true)
+    setInput(e.target.value)
   }
 
   return (
@@ -152,9 +168,14 @@ function SearchDB() {
           <InputLeftElement pointerEvents="none">
             <Icon as={RiSearchLine} />
           </InputLeftElement>
-          <Input bg="gray.700" placeholder="Поиск игрока" border="0" />
+          <Input
+            bg="gray.700"
+            placeholder="Поиск игрока"
+            border="0"
+            value={input}
+          />
         </InputGroup>
-        <Button type="submit" variant="gradientSolid">
+        <Button type="submit" variant="gradientSolid" isDisabled={isDisabled}>
           Поиск
         </Button>
       </Stack>
@@ -172,7 +193,11 @@ interface NavItem {
 }
 
 interface MobileNavProps {
-  onToggle: MouseEventHandler
+  onToggleMobileNav: MouseEventHandler
+}
+
+interface SearchDBProps {
+  onToggleMobileNav: MouseEventHandler
 }
 
 const NAV_ITEMS: Array<NavItem> = [
