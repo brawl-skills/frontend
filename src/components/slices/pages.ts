@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-type PageTypes = 'main' | 'about' | 'lvl' | '404'
+type PageTypes = 'main' | 'about' | 'lvl' | '404' | 'player'
 
 interface PagesState {
   page: PageTypes

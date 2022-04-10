@@ -6,8 +6,6 @@ import {
   Text,
   UnorderedList,
   ListItem,
-  Flex,
-  Box,
   Link,
 } from '@chakra-ui/react'
 
@@ -17,6 +15,7 @@ import { setPage } from '../components/slices/pages'
 
 // Components
 import PageBody from '../components/PageBody'
+import GradientLine from '../components/GradientLine'
 
 export default function About() {
   const dispatch = useMyDispatch()
@@ -48,7 +47,7 @@ export default function About() {
         <Text as="p" fontSize="xl">
           Цветовая градация в зависимости от цветового значения:
         </Text>
-        <GradientLine />
+        <GradientLine variant="about" />
         <Text as="p" fontSize="xl">
           Пример пояснение: если по результатам подсчетов рейтинга, полученные
           значения полностью совпадают со средними значениями игроков того же
@@ -78,47 +77,5 @@ export default function About() {
         </Text>
       </Stack>
     </PageBody>
-  )
-}
-
-function GradientLine() {
-  return (
-    <Flex direction="column">
-      <Flex pb={2}>
-        <Flex flex={1} justify="center">
-          <Text as="b" color="orange.300">
-            45%
-          </Text>
-        </Flex>
-        <Flex flex={1} justify="center">
-          <Text as="b" color="green.300">
-            55%
-          </Text>
-        </Flex>
-      </Flex>
-      <Box
-        h={3}
-        w="100%"
-        borderRadius="full"
-        bgGradient="linear(to-r, #FC8181, #F6AD55, #F6E05E, #68D391, #B794F4)"
-      />
-      <Flex pt={2}>
-        <Flex flex={1} justify="flex-start" pl={{ base: 2, md: 8 }}>
-          <Text as="b" color="red.300">
-            40%
-          </Text>
-        </Flex>
-        <Flex flex={1} justify="center">
-          <Text as="b" color="orange.300">
-            50%
-          </Text>
-        </Flex>
-        <Flex flex={1} justify="flex-end" pr={{ base: 2, md: 8 }}>
-          <Text as="b" color="purple.300">
-            60%
-          </Text>
-        </Flex>
-      </Flex>
-    </Flex>
   )
 }

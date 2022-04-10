@@ -3,8 +3,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 
-import { Link } from 'react-router-dom'
 import { MouseEventHandler, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import {
   GridItem,
   Flex,
@@ -147,11 +147,13 @@ function MobileNavItem({ label, href, pageType, action }: NavItem) {
 function SearchDB({ onToggleMobileNav }: SearchDBProps) {
   const [input, setInput] = useState('')
   const [isDisabled, setIsDisabled] = useState(true)
+  const navigate = useNavigate()
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
     // @ts-ignore
     onToggleMobileNav(e)
+    navigate(paths(`/player/${input}`))
   }
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -173,6 +175,7 @@ function SearchDB({ onToggleMobileNav }: SearchDBProps) {
             placeholder="Поиск игрока"
             border="0"
             value={input}
+            onChange={handleChangeInput}
           />
         </InputGroup>
         <Button type="submit" variant="gradientSolid" isDisabled={isDisabled}>
