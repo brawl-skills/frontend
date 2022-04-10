@@ -21,9 +21,9 @@ export default function Root() {
       <Navbar />
       <Routes>
         <Route path={paths('/')} element={<Main />} />
-        <Route path={paths('lvl')} element={<Levels />} />
-        <Route path={paths('about')} element={<About />} />
-        <Route path={paths('player/:playerName')} element={<Player />} />
+        <Route path={paths('/lvl')} element={<Levels />} />
+        <Route path={paths('/about')} element={<About />} />
+        <Route path={paths('/player/:playerName')} element={<Player />} />
         <Route path={paths('*')} element={<NotFound />} />
       </Routes>
       <Footer />
