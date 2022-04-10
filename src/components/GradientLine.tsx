@@ -75,17 +75,18 @@ export default function GradientLine({
           boxShadow="0px 0px 6px rgba(0, 0, 0, 0.5)"
           borderRadius="full"
           display={isPlayer ? 'block' : 'none'}
+        />
+        <Flex
+          w="6rem"
+          pos="absolute"
+          left={`calc(${cursorPos}% - 3rem)`}
+          bottom={{ base: 6, md: 7 }}
+          justify="center"
         >
-          <Heading
-            pos="absolute"
-            bottom={7}
-            left={-8}
-            bgGradient={selectColor(cursorText)}
-            bgClip="text"
-          >
+          <Heading bgGradient={selectColor(cursorText)} bgClip="text">
             {cursorText}
           </Heading>
-        </Box>
+        </Flex>
       </Box>
       <Flex pt={2} display={isPlayer ? 'none' : 'flex'}>
         <Flex flex={1} justify="flex-start" pl={{ base: 2, md: 8 }}>
