@@ -172,7 +172,7 @@ const playerStats: Array<Tinfo> = [
     arrow: 'down',
     percent: 12.2,
   },
-  { title: 'Уровнень', value: random(20, 80), isColored: true },
+  { title: 'Уровень', value: random(20, 80), isColored: true },
   {
     title: 'Персонажи',
     value: random(10, 600),
