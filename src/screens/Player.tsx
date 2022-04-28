@@ -1,7 +1,14 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { Stack, Heading, Image, Button, useToast } from '@chakra-ui/react'
+import {
+  Stack,
+  Heading,
+  Image,
+  Button,
+  useToast,
+  StackProps,
+} from '@chakra-ui/react'
 
 // Redux Store
 import { useMyDispatch } from '../components/storeHooks'
@@ -10,9 +17,13 @@ import { setPage } from '../components/slices/pages'
 // Components
 import PageBody from '../components/PageBody'
 import GradientLine from '../components/GradientLine'
+import Stats, { Tinfo } from '../components/Stats'
+import ChartBox from '../components/ChartBox'
+import BarChart from '../components/charts/BarChart'
 
 // Helper functions
 import random from '../helper/random'
+import randBrawlerName from '../helper/randBrawlerName'
 
 export default function Player() {
   const dispatch = useMyDispatch()
@@ -51,6 +62,8 @@ export default function Player() {
         cursorText={cursorText}
         mt={14}
       />
+      <Stats data={playerStats} mt={16} />
+      <Graphs mt={16} />
     </PageBody>
   )
 }
@@ -89,6 +102,93 @@ function ShortInfo({ iconId, name, tag }: ShortInfoProps) {
   )
 }
 
+function Graphs({ mt }: StackProps) {
+  return (
+    <Stack direction={{ base: 'column', lg: 'row' }} mt={mt} spacing={16}>
+      <ChartBox
+        title="Кубки персонажей"
+        desc="Столбчатый график со всеми персонажами игрока, где ось Y это кубки."
+        graph={<TrophiesByBrawler />}
+      />
+      <ChartBox
+        title="Сила персонажей"
+        desc="Столбчатый график со всеми персонажами игрока, где ось Y это уровень сила."
+        graph={<PowerByBrawler />}
+      />
+      <ChartBox
+        title="Гаджеты и Звездная сила"
+        desc="Столбчатый график со всеми персонажами игрока, где ось Y это кол-во открытых доп. способностей."
+        graph={<SpecialsByBrawler />}
+      />
+    </Stack>
+  )
+}
+
+function TrophiesByBrawler() {
+  // @ts-ignore
+  const dataset: Array<BarDataType> = [...Array(10).keys()]
+
+  dataset.forEach((_, i) => {
+    dataset[i] = {
+      data1: random(100, 600),
+      name: randBrawlerName(),
+    }
+  })
+  return <BarChart data1Name="Кубки" dataset={dataset} />
+}
+function PowerByBrawler() {
+  // @ts-ignore
+  const dataset: Array<BarDataType> = [...Array(10).keys()]
+
+  dataset.forEach((_, i) => {
+    dataset[i] = {
+      data1: random(0, 11),
+      name: randBrawlerName(),
+    }
+  })
+  return <BarChart data1Name="Сила" dataset={dataset} />
+}
+function SpecialsByBrawler() {
+  // @ts-ignore
+  const dataset: Array<BarDataType> = [...Array(10).keys()]
+
+  dataset.forEach((_, i) => {
+    dataset[i] = {
+      data1: random(0, 2),
+      data2: random(0, 1),
+      name: randBrawlerName(),
+    }
+  })
+  return (
+    <BarChart data1Name="Гаджеты" data2Name="Звездная сила" dataset={dataset} />
+  )
+}
+
+const playerStats: Array<Tinfo> = [
+  { title: 'Кубки', value: random(1000, 20000), arrow: 'up', percent: 30.1 },
+  {
+    title: 'Кубки/Перс.',
+    value: random(300, 500),
+    arrow: 'down',
+    percent: 12.2,
+  },
+  { title: 'Уровнень', value: random(20, 80), isColored: true },
+  {
+    title: 'Персонажи',
+    value: random(10, 600),
+    arrow: 'up',
+    percent: 18.8,
+  },
+  { title: 'Гаджеты', value: random(1, 60), arrow: 'down', percent: 1.2 },
+  {
+    title: 'Звездная сила',
+    value: random(1, 100),
+    arrow: 'up',
+    percent: 0.2,
+  },
+]
+
+// Types
 interface ShortInfoProps {
   iconId: number
   name: string | undefined

@@ -74,33 +74,49 @@ export default function BarChart({
 
   const labels = dataset.map((e) => e.name)
 
+  const datasets =
+    data2Name !== undefined
+      ? [
+          {
+            label: data1Name,
+            data: dataset.map((e) => e.data1),
+            backgroundColor: '#FC8181',
+          },
+          {
+            label: data2Name,
+            data: dataset.map((e) => e.data2),
+            backgroundColor: '#63B3ED',
+          },
+        ]
+      : [
+          {
+            label: data1Name,
+            data: dataset.map((e) => e.data1),
+            backgroundColor: '#FC8181',
+          },
+        ]
+
   const data = {
     labels,
-    datasets: [
-      {
-        label: data1Name,
-        data: dataset.map((e) => e.data1),
-        backgroundColor: '#FC8181',
-      },
-      {
-        label: data2Name,
-        data: dataset.map((e) => e.data2),
-        backgroundColor: '#63B3ED',
-      },
-    ],
+    datasets,
   }
 
   return <Bar options={options} data={data} />
 }
 
+// Types
+BarChart.defaultProps = {
+  data2Name: undefined,
+}
+
 export interface BarDataType {
   data1: number
-  data2: number
+  data2?: number | undefined
   name: string
 }
 
 interface BarChartProps {
   data1Name: string
-  data2Name: string
+  data2Name?: string | undefined
   dataset: Array<BarDataType>
 }
