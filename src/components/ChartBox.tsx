@@ -7,10 +7,10 @@ export default function ChartBox({
   graph,
   isLoading = false,
 }: ChartBoxProps) {
-  const chartSize = { base: '300px', md: '350px' }
+  const chartSize = { base: '320px', md: '350px' }
   return (
-    <Stack w={chartSize}>
-      <Text fontSize="xl" as="b" textAlign="center" h={16}>
+    <Stack w={chartSize} align="center">
+      <Text fontSize="xl" as="b" textAlign="center" w={72}>
         {title}
       </Text>
       <Skeleton isLoaded={!isLoading}>

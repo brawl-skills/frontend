@@ -7,7 +7,7 @@ export default function PageBody({
   justify = 'center',
   align = 'center',
   dir = 'row',
-  px = { base: 8, md: 32 },
+  px = { base: 2, md: 32 },
 }: PageBodyProps) {
   return (
     <GridItem mt="64px">
