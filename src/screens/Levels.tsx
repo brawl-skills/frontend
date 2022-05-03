@@ -141,7 +141,7 @@ function Graphs({ isLoading, level }: GraphsProps) {
         isLoading={isLoading}
       />
       <ChartBox
-        title="Процент наличия определенных персонажей"
+        title="Средний процент прокачки определенных персонажей"
         graph={<TrophiesByBrawler />}
         isLoading={isLoading}
       />
