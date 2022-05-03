@@ -129,7 +129,7 @@ function Graphs({ isLoading }: GraphsProps) {
   return (
     <Stack
       w="100%"
-      mt={8}
+      my={8}
       align={{ base: 'center', md: 'normal' }}
       justifyContent={{ base: 'normal', md: 'space-evenly' }}
       spacing={{ base: 8, md: 0 }}
@@ -137,13 +137,11 @@ function Graphs({ isLoading }: GraphsProps) {
     >
       <ChartBox
         title="Процент наличия определенных персонажей"
-        desc="Круговая диаграмма, где каждый сектор отвечает за определенного персонажа."
         graph={<HavingBrawler />}
         isLoading={isLoading}
       />
       <ChartBox
         title="Процент наличия определенных персонажей"
-        desc="Круговая диаграмма, где каждый сектор отвечает за определенного персонажа."
         graph={<TrophiesByBrawler />}
         isLoading={isLoading}
       />

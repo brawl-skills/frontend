@@ -1,12 +1,6 @@
-/* eslint-disable react/require-default-props */
 import { Box, Stack, Text, Skeleton } from '@chakra-ui/react'
 
-export default function ChartBox({
-  title,
-  desc,
-  graph,
-  isLoading = false,
-}: ChartBoxProps) {
+export default function ChartBox({ title, graph, isLoading }: ChartBoxProps) {
   const chartSize = { base: '320px', md: '350px' }
   return (
     <Stack w={chartSize} align="center">
@@ -18,14 +12,17 @@ export default function ChartBox({
           {graph}
         </Box>
       </Skeleton>
-      <Text fontSize="xl">{desc}</Text>
     </Stack>
   )
 }
 
+// Types
+ChartBox.defaultProps = {
+  isLoading: false,
+}
+
 interface ChartBoxProps {
   title: string
-  desc: string
   graph: JSX.Element
   isLoading?: boolean
 }

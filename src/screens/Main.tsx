@@ -35,22 +35,17 @@ export default function Main() {
 
 function Graphs() {
   return (
-    <Stack direction={{ base: 'column', lg: 'row' }} spacing={16}>
+    <Stack mb={8} direction={{ base: 'column', lg: 'row' }} spacing={16}>
       <ChartBox
         title="Распределение игроков по уровням"
-        desc="График показывает 
-        распределение игроков 
-        на разных игровых уровнях."
         graph={<PlayerByLvl />}
       />
       <ChartBox
         title="Количество игроков за последние сутки"
-        desc="График с колличеством игроков в разные часы за последние сутки."
         graph={<PlayerByHours />}
       />
       <ChartBox
         title="Самый популярный боец за сутки"
-        desc="Радиальная диаграмма показывает количество игр на разных персонажах за сутки."
         graph={<BestBrawlerBy24H />}
       />
     </Stack>

@@ -63,7 +63,7 @@ export default function Player() {
         mt={14}
       />
       <Stats data={playerStats} mt={16} />
-      <Graphs mt={16} />
+      <Graphs my={16} />
     </PageBody>
   )
 }
@@ -102,24 +102,12 @@ function ShortInfo({ iconId, name, tag }: ShortInfoProps) {
   )
 }
 
-function Graphs({ mt }: StackProps) {
+function Graphs({ my }: StackProps) {
   return (
-    <Stack direction={{ base: 'column', lg: 'row' }} mt={mt} spacing={16}>
-      <ChartBox
-        title="Кубки персонажей"
-        desc="Столбчатый график со всеми персонажами игрока, где ось Y это кубки."
-        graph={<TrophiesByBrawler />}
-      />
-      <ChartBox
-        title="Сила персонажей"
-        desc="Столбчатый график со всеми персонажами игрока, где ось Y это уровень сила."
-        graph={<PowerByBrawler />}
-      />
-      <ChartBox
-        title="Гаджеты и Звездная сила"
-        desc="Столбчатый график со всеми персонажами игрока, где ось Y это кол-во открытых доп. способностей."
-        graph={<SpecialsByBrawler />}
-      />
+    <Stack direction={{ base: 'column', lg: 'row' }} my={my} spacing={16}>
+      <ChartBox title="Кубки персонажей" graph={<TrophiesByBrawler />} />
+      <ChartBox title="Сила персонажей" graph={<PowerByBrawler />} />
+      <ChartBox title="Гаджеты и Звездная сила" graph={<SpecialsByBrawler />} />
     </Stack>
   )
 }
