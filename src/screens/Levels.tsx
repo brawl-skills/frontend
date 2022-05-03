@@ -41,7 +41,7 @@ export default function Levels() {
     <PageBody dir="column">
       <LevelSelect level={level} setLevel={setLevel} setLoading={setLoading} />
       <Stats data={levelStats} isLoading={isLoading} />
-      <Graphs isLoading={isLoading} />
+      <Graphs isLoading={isLoading} level={level} />
     </PageBody>
   )
 }
@@ -125,7 +125,7 @@ const levelStats: Array<Tinfo> = [
   },
 ]
 
-function Graphs({ isLoading }: GraphsProps) {
+function Graphs({ isLoading, level }: GraphsProps) {
   return (
     <Stack
       w="100%"
@@ -136,7 +136,7 @@ function Graphs({ isLoading }: GraphsProps) {
       direction={{ base: 'column', md: 'row' }}
     >
       <ChartBox
-        title="Процент наличия определенных персонажей"
+        title={`Процент наличия персонажей на уровне ${level}`}
         graph={<HavingBrawler />}
         isLoading={isLoading}
       />
@@ -196,4 +196,5 @@ interface LevelSelectProps {
 
 interface GraphsProps {
   isLoading: boolean
+  level: number
 }
