@@ -12,19 +12,16 @@ import About from './About'
 import Levels from './Levels'
 import Player from './Player'
 
-// Help functions
-import paths from '../helper/paths'
-
 export default function Root() {
   return (
     <Grid h="100%" templateRows="repeat(3, max-content)" templateColumns="1fr">
       <Navbar />
       <Routes>
-        <Route path={paths('/')} element={<Main />} />
-        <Route path={paths('/lvl')} element={<Levels />} />
-        <Route path={paths('/about')} element={<About />} />
-        <Route path={paths('/player/:playerName')} element={<Player />} />
-        <Route path={paths('*')} element={<NotFound />} />
+        <Route path="/" element={<Main />} />
+        <Route path="/lvl" element={<Levels />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/player/:playerName" element={<Player />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
     </Grid>

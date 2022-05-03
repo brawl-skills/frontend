@@ -24,9 +24,6 @@ import { RiMenuLine, RiSearchLine } from 'react-icons/ri'
 // Redux Store
 import { useMySelector } from './storeHooks'
 
-// Helper functions
-import paths from '../helper/paths'
-
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure()
 
@@ -153,7 +150,7 @@ function SearchDB({ onToggleMobileNav }: SearchDBProps) {
     e.preventDefault()
     // @ts-ignore
     onToggleMobileNav(e)
-    navigate(paths(`/player/${input}`))
+    navigate(`/player/${input}`)
   }
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -207,16 +204,16 @@ const NAV_ITEMS: Array<NavItem> = [
   {
     label: 'Главная страница',
     pageType: 'main',
-    href: paths('/'),
+    href: '/',
   },
   {
     label: 'Уровни',
     pageType: 'lvl',
-    href: paths('/lvl'),
+    href: '/lvl',
   },
   {
     label: 'О Проекте',
     pageType: 'about',
-    href: paths('/about'),
+    href: '/about',
   },
 ]
