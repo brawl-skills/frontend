@@ -60,7 +60,7 @@ export default function GradientLine({
       </Flex>
       <Box
         h={3}
-        w={{ base: '80%', md: '100%' }}
+        w="100%"
         borderRadius="full"
         bgGradient="linear(to-r, #FC8181, #F6AD55, #F6E05E, #68D391, #B794F4)"
         pos="relative"
@@ -107,6 +107,13 @@ export default function GradientLine({
       </Flex>
     </Flex>
   )
+}
+
+// Types
+GradientLine.defaultProps = {
+  cursorPos: 25,
+  cursorText: 'Error',
+  w: 'auto',
 }
 
 interface GradientLineProps {

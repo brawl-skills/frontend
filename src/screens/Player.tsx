@@ -56,7 +56,7 @@ export default function Player() {
     <PageBody dir="column">
       <ShortInfo iconId={iconId} name={playerName} tag={tag} />
       <GradientLine
-        w="100%"
+        w={{ base: '70%', md: '100%' }}
         variant="player"
         cursorPos={cursorPos}
         cursorText={cursorText}
